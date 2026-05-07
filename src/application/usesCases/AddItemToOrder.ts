@@ -1,7 +1,7 @@
-import type { AddItemToOrderDTO } from '../dto/AddItemToOrderDTO';
-import type { OrderRepository } from '../ports/OrderRepository';
-import type { PricingService } from '../ports/PricingService';
-import type { EventBus } from '../ports/EventBus';
+import { AddItemToOrderDTO } from '../dto/AddItemToOrderDTO';
+import { OrderRepository } from '../ports/OrderRepository';
+import { PricingService } from '../ports/PricingService';
+import { EventBus } from '../ports/EventBus';
 import { Result, ok, fail } from '../../shared/Result';
 import { InvariantError } from '../../domain/OrderDomain';
 import {
