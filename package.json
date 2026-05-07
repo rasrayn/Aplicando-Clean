@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "dev": "tsx main.ts"
+    "dev": "tsx src/main.ts"
   },
   "dependencies": {
     "fastify": "4.28.1"

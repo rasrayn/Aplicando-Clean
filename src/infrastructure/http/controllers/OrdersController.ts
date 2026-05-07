@@ -3,15 +3,15 @@ import { CreateOrder } from '../../../application/usesCases/CreateOrder';
 import { AddItemToOrder } from '../../../application/usesCases/AddItemToOrder';
 import { fold } from '../../../shared/Result';
 import {
+    CreateOrderDTO,
+    AddItemToOrderDTO,
+} from '../../../application/dto';
+import {
     ValidationError,
     NotFoundError,
     ConflictError,
     InfraError,
 } from '../../../application/errors';
-
-export interface CreateOrderPayload {
-    orderId: string;
-}
 
 export interface AddItemPayload {
     productId: string;
@@ -30,7 +30,7 @@ export class OrdersController {
      * Registra las rutas del controlador en la instancia de Fastify
      */
     register(fastify: FastifyInstance): void {
-        fastify.post<{ Body: CreateOrderPayload }>(
+        fastify.post<{ Body: CreateOrderDTO }>(
             '/orders',
             async (request, reply) => this.createOrder(request, reply)
         );
@@ -48,12 +48,14 @@ export class OrdersController {
      * Crea una nueva orden
      */
     private async createOrder(
-        request: FastifyRequest<{ Body: CreateOrderPayload }>,
+        request: FastifyRequest<{ Body: CreateOrderDTO }>,
         reply: FastifyReply
     ): Promise<void> {
-        const result = await this.createOrderUseCase.execute({
+        const dto: CreateOrderDTO = {
             orderId: request.body.orderId,
-        });
+        };
+
+        const result = await this.createOrderUseCase.execute(dto);
 
         fold(
             result,
@@ -75,13 +77,15 @@ export class OrdersController {
         request: FastifyRequest<{ Params: { orderId: string }; Body: AddItemPayload }>,
         reply: FastifyReply
     ): Promise<void> {
-        const result = await this.addItemToOrderUseCase.execute({
+        const dto: AddItemToOrderDTO = {
             orderId: request.params.orderId,
             productId: request.body.productId,
             productName: request.body.productName,
             quantity: request.body.quantity,
             currencyCode: request.body.currencyCode,
-        });
+        };
+
+        const result = await this.addItemToOrderUseCase.execute(dto);
 
         fold(
             result,
