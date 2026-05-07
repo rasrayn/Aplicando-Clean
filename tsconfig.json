@@ -4,10 +4,10 @@
     // File Layout
     "rootDir": ".",
     "outDir": "./dist",
-    "baseUrl": "./",
     "ignoreDeprecations": "6.0",
     "paths": {
-      "@/*": ["src/*"]
+      "*": ["./src/*"],
+      "@/*": ["./*"]
     },
 
     // Environment Settings
@@ -41,12 +41,12 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*.ts", "main.ts"],
-  "exclude": ["node_modules", "dist", "tests"],
+  "exclude": ["node_modules", "dist", "src/tests"]
 }
